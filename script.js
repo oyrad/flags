@@ -1,4 +1,4 @@
-const getCountries = async dataNumber => {
+async function getCountries(dataNumber) {
 
     const response = await fetch("https://restcountries.eu/rest/v2/all")
     const data = await response.json()
@@ -10,24 +10,36 @@ const getCountries = async dataNumber => {
       
         countries.push({
             flag: country.flag,
-            answer: country.name
+            name: country.name,
+            capital: country.capital
         })
     }
     return countries
 }
 
-getCountries(20).then(data => {
-    console.log(data);
-  });
+let rendered = false
+const form = document.querySelector('form')
+const list = document.querySelector('.grid-list')
+const selectBox = document.querySelector('select')
 
-/* countries.forEach(({ flag, answer }) => {
-    console.log(1)
-    console.log(answer)
-    const container = document.createElement('div')
-    const flagImg = document.createElement('img')
-    const list = document.querySelector('.list')
+form.addEventListener('submit', event => {
+    event.preventDefault()
 
-    flagImg.src = country.flag
-    container.appendChild(flagImg)
-    list.appendChild(container)
-}) */
+    if (rendered) {
+        list.querySelectorAll('*').forEach(element => element.remove())
+        rendered = false
+    }
+
+    getCountries(selectBox.value).then(countries => {
+        countries.forEach(({ flag, name, capital }) => {
+            const container = document.createElement('div')
+            const flagImg = document.createElement('img')
+
+            flagImg.src = flag
+            container.appendChild(flagImg)
+            list.appendChild(container)
+        })
+    })
+    rendered = true
+    form.reset()
+})

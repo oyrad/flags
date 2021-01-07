@@ -1,4 +1,49 @@
-/* div {
-    width: 200px;
-    height: 100px;
-} */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Noto sans", sans-serif;
+}
+
+body {
+    background-color: #ddd;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.header {
+    height: 90px;
+    background-color: #000;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+}
+
+select, button {
+    font-size: 30px;
+    border-radius: 20px;
+    cursor: pointer;
+    outline: none;
+}
+
+select {
+    width: 300px;
+}
+
+button {
+    padding: 0 10px;
+}
+
+img {
+    max-width: 30%;
+    max-height: 30%;
+}
