@@ -1,25 +1,26 @@
 async function getCountries(region, quantity) {
 
-    if (region !== "all") {
+    const response = await fetch("https://restcountries.eu/rest/v2/all")
+    const data = await response.json()
+    
+    const avoidNums = [30, 33, 98, 183, 191, 216]
+    //const availableCountries = data.filter(index => avoidNums.includes(index))
 
-        const response = await fetch(`https://restcountries.eu/rest/v2/region/${region}`)
-        const data = await response.json()
+    
+    const filteredCountries = data.filter((country, index) => 
+        (!avoidNums.includes(index) && (region === "all" || country.region == region)))
+      
+    const countries = []
+    const pastRndNums = []
         
-        const countries = []
-        const pastRndNums = []
-        const avoidNums = [30, 33, 98, 183, 191, 216]
-        
-        for(let counter = 0; counter < quantity; counter++) {
+    let foundFlags = 0
+    while(foundFlags < quantity) {
 
-            const randomNum = Math.floor(Math.random() * data.length)
-            
-            if (pastRndNums.includes(randomNum) || avoidNums.includes(randomNum)) {
-                counter--
-                continue
-            }
+        const randomNum = Math.floor(Math.random() * filteredCountries.length)
 
+        if (!(pastRndNums.includes(randomNum) || avoidNums.includes(randomNum))) {
             pastRndNums.push(randomNum)
-            const country = data[randomNum]
+            const country = filteredCountries[randomNum]
       
             countries.push({
                 flag: country.flag,
@@ -28,43 +29,11 @@ async function getCountries(region, quantity) {
                 languages: country.languages[0].name,
                 region: country.region
             })
+
+            foundFlags++
         }
-
-        return countries
-
-    } else {
-
-        const response = await fetch("https://restcountries.eu/rest/v2/all")
-        const data = await response.json()
-
-        const countries = []
-        const pastRndNums = []
-        const avoidNums = [30, 33, 98, 183, 191, 216]
-
-        for(let counter = 0; counter < quantity; counter++) {
-
-            const randomNum = Math.floor(Math.random() * data.length)
-            
-            if (pastRndNums.includes(randomNum) || avoidNums.includes(randomNum)) {
-                counter--
-                continue
-            }
-
-            pastRndNums.push(randomNum)
-            const country = data[randomNum]
-      
-            countries.push({
-                flag: country.flag,
-                name: country.name,
-                capital: country.capital,
-                languages: country.languages[0].name,
-                region: country.region
-            })
-        }
-
-        return countries
-
     }
+    return countries
 }
 
 let rendered = false
@@ -137,5 +106,4 @@ form.addEventListener('submit', e => {
 
     })
     rendered = true
-    form.reset()
 })
