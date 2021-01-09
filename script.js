@@ -1,44 +1,140 @@
-async function getCountries(dataNumber) {
+async function getCountries(region, quantity) {
 
-    const response = await fetch("https://restcountries.eu/rest/v2/all")
-    const data = await response.json()
+    if (region !== "all") {
 
-    const countries = []
-    for(let i = 0; i < dataNumber; i++) {
-        const randomNum = Math.floor(Math.random() * data.length)
-        const country = data[randomNum]
+        const response = await fetch(`https://restcountries.eu/rest/v2/region/${region}`)
+        const data = await response.json()
+        
+        const countries = []
+        const pastRndNums = []
+        const avoidNums = [30, 33, 98, 183, 191, 216]
+        
+        for(let counter = 0; counter < quantity; counter++) {
+
+            const randomNum = Math.floor(Math.random() * data.length)
+            
+            if (pastRndNums.includes(randomNum) || avoidNums.includes(randomNum)) {
+                counter--
+                continue
+            }
+
+            pastRndNums.push(randomNum)
+            const country = data[randomNum]
       
-        countries.push({
-            flag: country.flag,
-            name: country.name,
-            capital: country.capital
-        })
+            countries.push({
+                flag: country.flag,
+                name: country.name,
+                capital: country.capital,
+                languages: country.languages[0].name,
+                region: country.region
+            })
+        }
+
+        return countries
+
+    } else {
+
+        const response = await fetch("https://restcountries.eu/rest/v2/all")
+        const data = await response.json()
+
+        const countries = []
+        const pastRndNums = []
+        const avoidNums = [30, 33, 98, 183, 191, 216]
+
+        for(let counter = 0; counter < quantity; counter++) {
+
+            const randomNum = Math.floor(Math.random() * data.length)
+            
+            if (pastRndNums.includes(randomNum) || avoidNums.includes(randomNum)) {
+                counter--
+                continue
+            }
+
+            pastRndNums.push(randomNum)
+            const country = data[randomNum]
+      
+            countries.push({
+                flag: country.flag,
+                name: country.name,
+                capital: country.capital,
+                languages: country.languages[0].name,
+                region: country.region
+            })
+        }
+
+        return countries
+
     }
-    return countries
 }
 
 let rendered = false
 const form = document.querySelector('form')
 const list = document.querySelector('.grid-list')
-const selectBox = document.querySelector('select')
+const regionBox = document.querySelector('.region')
+const quantityBox = document.querySelector('.quantity')
 
-form.addEventListener('submit', event => {
-    event.preventDefault()
+form.addEventListener('submit', e => {
 
-    if (rendered) {
-        list.querySelectorAll('*').forEach(element => element.remove())
-        rendered = false
-    }
+    e.preventDefault()
+    
+    if (rendered) list.querySelectorAll('*').forEach(element => element.remove())
 
-    getCountries(selectBox.value).then(countries => {
-        countries.forEach(({ flag, name, capital }) => {
+    getCountries(regionBox.value, quantityBox.value).then(countries => {
+        
+        countries.forEach(({ flag, name, capital, languages, region }) => {
             const container = document.createElement('div')
-            const flagImg = document.createElement('img')
+            container.className = "card"
 
+            const front = document.createElement('div')
+            front.className = "front"
+
+            const back = document.createElement('div')
+            back.className = "back"
+
+            const countryName = document.createElement('h4')
+            countryName.innerText = `Name: ${name}`
+
+            const countryCapital = document.createElement('h4')
+            if(!capital) countryCapital.innerText = `Capital City: None`
+            else countryCapital.innerText = `Capital City: ${capital}`
+            countryCapital.style.color = "#666"
+
+            const countryLangs = document.createElement('h4')
+            countryLangs.innerText = `Language: ${languages}`
+
+            const countryReg = document.createElement('h4')
+            countryReg.innerText = `Region: ${region}`
+            countryReg.style.color = "#666"
+            
+            const flagImg = document.createElement('img')
             flagImg.src = flag
-            container.appendChild(flagImg)
+            
+            front.appendChild(flagImg)
+
+            back.appendChild(countryName)
+            back.appendChild(countryCapital)
+            back.appendChild(countryLangs)
+            back.appendChild(countryReg)
+
+            container.appendChild(front)
+
+            let flip = false
+            container.addEventListener("click", () => {
+                flip = !flip
+                if (flip) {
+                    container.className = "card flip"
+                    front.remove()
+                    container.appendChild(back)
+                } else {
+                    container.className = "card"
+                    back.remove()
+                    container.appendChild(front)
+                }
+            })
+
             list.appendChild(container)
         })
+
     })
     rendered = true
     form.reset()

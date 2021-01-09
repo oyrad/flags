@@ -8,42 +8,110 @@
 }
 
 body {
-    background-color: #ddd;
-}
-
-.container {
-    max-width: 1200px;
-    margin: auto;
+    background-color: #c8d0d2;
 }
 
 .header {
-    height: 90px;
-    background-color: #000;
+    margin-bottom: 35px;
+    background-color: white;
+    padding: .5rem 1.5rem;
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, .3);
+}
+
+.header *{
+    outline: none;
+}
+
+.form-group {
+    margin: .75rem;
+    font-size: 1rem;
+}
+
+.form-group label{
+    color: #777;
+    margin-right: .25rem;
+}
+
+.region, .quantity {
+    width: 7rem;
+    height: 1.5rem;
+}
+
+button {
+    background-color: hsl(200, 100%, 50%);
+    color: white;
+    padding: .5em 1em;
+    border-radius: .3em;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: hsl(200, 100%, 45%);
 }
 
 .flex {
     display: flex;
-    justify-content: space-around;
+    flex-wrap: wrap;
     align-items: center;
-    height: 100%;
+    justify-content: flex-end;
 }
 
-select, button {
+#logo {
+    margin-right: auto;
     font-size: 30px;
-    border-radius: 20px;
+}
+
+.card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
     cursor: pointer;
-    outline: none;
+    border-radius: .25rem;
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, .3);
+    background-color: #fff;
+    transform-style: preserve-3d;
+    transition: 200ms;
+    transform: perspective(1000px) rotateY(var(--rotate-y, 0))
+    translateY(var(--translate-y, 0));
 }
 
-select {
-    width: 300px;
+.card:hover {
+    --translate-y: -5px;
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, .5);
 }
 
-button {
-    padding: 0 10px;
+.card.flip {
+    --rotate-y: 180deg;
+}
+
+.card .front
+.card .back {
+    position: absolute;
+    backface-visibility: hidden;
+}
+
+.card .back {
+    transform: rotateY(180deg);
+    width: 100%;
+    padding: 1.6rem;
+    line-height: 1.5rem;
+}
+
+.grid-list {
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.container {
+    max-width: 1400px;
+    margin: auto;
 }
 
 img {
-    max-width: 30%;
-    max-height: 30%;
+    display: block;
+    width: 100%;
 }

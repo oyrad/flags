@@ -10,15 +10,23 @@
     <header class="header">
         <div class="container">
             <form class="flex">
-                <select>
-                    <option value=''>Select</option>
-                    <option value=5>5</option>
-                    <option value=10>10</option>
-                    <option value=15>15</option>
-                    <option value=20>20</option>
-                    <option value=50>50</option>
-                </select>
-                <button>Generate</button>
+                <h2 id="logo">Flag Generator Quiz</h2>
+                <div class="form-group">
+                    <label>Region:</label>
+                    <select class="region" required>
+                        <option value="all">All</option>
+                        <option value="africa">Africa</option>
+                        <option value="americas">Americas</option>
+                        <option value="asia">Asia</option>
+                        <option value="europe">Europe</option>
+                        <option value="oceania">Oceania</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                <label>Number of flags:</label>
+                    <input class="quantity" type="number" min="1" step="1" max="25">
+                </div>
+                <button class="form-group">Generate</button>
             </form>
         </div>
     </header>
