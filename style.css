@@ -9,6 +9,7 @@
 
 body {
     background-color: #c8d0d2;
+    
 }
 
 .header {
@@ -75,6 +76,7 @@ button:hover {
     transition: 200ms;
     transform: perspective(1000px) rotateY(var(--rotate-y, 0))
     translateY(var(--translate-y, 0));
+    width: 100%
 }
 
 .card:hover {
@@ -96,7 +98,7 @@ button:hover {
     transform: rotateY(180deg);
     width: 100%;
     padding: 1.6rem;
-    line-height: 1.5rem;
+    line-height: 1.35rem;
 }
 
 .grid-list {
@@ -114,4 +116,8 @@ button:hover {
 img {
     display: block;
     width: 100%;
+}
+
+footer {
+    margin-top: 35px;
 }
