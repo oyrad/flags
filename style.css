@@ -1,124 +1,149 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap");
 
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: "Noto sans", sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Noto sans", sans-serif;
 }
 
 body {
-    background-color: #c8d0d2;
-    
+  background-color: #c8d0d2;
+}
+
+main {
+  margin-bottom: 2rem;
 }
 
 .header {
-    margin-bottom: 35px;
-    background-color: white;
-    padding: .5rem 1.5rem;
-    box-shadow: 0 0 5px 2px rgba(0, 0, 0, .3);
+  margin-bottom: 35px;
+  background-color: white;
+  padding: 0.5rem 1.5rem;
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.3);
 }
 
-.header *{
-    outline: none;
+.header * {
+  outline: none;
 }
 
 .form-group {
-    margin: .75rem;
-    font-size: 1rem;
+  margin: 0.75rem;
+  font-size: 1rem;
 }
 
-.form-group label{
-    color: #777;
-    margin-right: .25rem;
+.form-group label {
+  color: #777;
+  margin-right: 0.25rem;
 }
 
-.region, .quantity {
-    width: 7rem;
-    height: 1.5rem;
+.region,
+.quantity {
+  width: 7rem;
+  height: 1.5rem;
 }
 
 button {
-    background-color: hsl(200, 100%, 50%);
-    color: white;
-    padding: .5em 1em;
-    border-radius: .3em;
-    border: none;
-    cursor: pointer;
+  background-color: hsl(200, 100%, 50%);
+  color: white;
+  padding: 0.5em 1em;
+  border-radius: 0.3em;
+  border: none;
+  cursor: pointer;
 }
 
 button:hover {
-    background-color: hsl(200, 100%, 45%);
+  background-color: hsl(200, 100%, 45%);
 }
 
 .flex {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: flex-end;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 #logo {
-    margin-right: auto;
-    font-size: 30px;
+  margin-right: auto;
+  font-size: 30px;
 }
 
 .card {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    cursor: pointer;
-    border-radius: .25rem;
-    box-shadow: 0 0 5px 2px rgba(0, 0, 0, .3);
-    background-color: #fff;
-    transform-style: preserve-3d;
-    transition: 200ms;
-    transform: perspective(1000px) rotateY(var(--rotate-y, 0))
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+  transform-style: preserve-3d;
+  transition: 200ms;
+  transform: perspective(1000px) rotateY(var(--rotate-y, 0))
     translateY(var(--translate-y, 0));
-    width: 100%
+  width: 100%;
 }
 
 .card:hover {
-    --translate-y: -5px;
-    box-shadow: 0 0 5px 2px rgba(0, 0, 0, .5);
+  --translate-y: -5px;
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);
 }
 
 .card.flip {
-    --rotate-y: 180deg;
+  --rotate-y: 180deg;
 }
 
-.card .front
-.card .back {
-    position: absolute;
-    backface-visibility: hidden;
+.card .front .card .back {
+  position: absolute;
+  backface-visibility: hidden;
 }
 
 .card .back {
-    transform: rotateY(180deg);
-    width: 100%;
-    padding: 1.6rem;
-    line-height: 1.35rem;
+  transform: rotateY(180deg);
+  width: 100%;
+  padding: 1.6rem;
+  line-height: 1.35rem;
 }
 
 .grid-list {
-    display: grid;
-    align-items: center;
-    
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 2rem;
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 2rem;
 }
 
 .container {
-    max-width: 1400px;
-    margin: auto;
+  max-width: 1400px;
+  margin: auto;
 }
 
 img {
-    display: block;
-    width: 100%;
+  display: block;
+  width: 100%;
 }
 
 footer {
-    margin-top: 35px;
+  margin-top: 35px;
+}
+
+@media (max-width: 600px) {
+  .header {
+    padding: 1rem 0;
+  }
+
+  #logo {
+    margin-bottom: 1rem;
+  }
+
+  .flex {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .container {
+    padding: 0 2.5rem;
+  }
+
+  .form-group {
+    margin-left: 0;
+  }
 }
