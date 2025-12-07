@@ -69,23 +69,12 @@ form.addEventListener("submit", async (e) => {
     countryName.innerText = name.toUpperCase();
     countryName.style.marginBottom = "5px";
 
-    const countryCapital = document.createElement("h5");
-    if (!capital) countryCapital.innerText = `Capital City: None`;
-    else countryCapital.innerText = `Capital City: ${capital}`;
-    countryCapital.style.color = "#666";
-
-    const countryLangs = document.createElement("h5");
-    countryLangs.innerText = `Language: ${languages}`;
-    countryLangs.style.color = "#666";
-
     const flagImg = document.createElement("img");
     flagImg.src = flag;
 
     front.appendChild(flagImg);
 
     back.appendChild(countryName);
-    back.appendChild(countryCapital);
-    back.appendChild(countryLangs);
 
     if (regionBox.value === "all") {
       const countryReg = document.createElement("h5");
@@ -98,6 +87,18 @@ form.addEventListener("submit", async (e) => {
       countrySub.style.color = "#666";
       back.appendChild(countrySub);
     }
+
+    const countryCapital = document.createElement("h5");
+    if (!capital) countryCapital.innerText = `Capital: None`;
+    else countryCapital.innerText = `Capital: ${capital}`;
+    countryCapital.style.color = "#666";
+
+    const countryLangs = document.createElement("h5");
+    countryLangs.innerText = `Language: ${languages}`;
+    countryLangs.style.color = "#666";
+
+    back.appendChild(countryCapital);
+    back.appendChild(countryLangs);
 
     container.appendChild(front);
 
